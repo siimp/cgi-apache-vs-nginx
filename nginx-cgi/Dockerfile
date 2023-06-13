@@ -1,5 +1,6 @@
 # podman build --tag nginx-cgi:latest .
 # podman run --rm -p 8080:80 --name nginx-cgi nginx-cgi:latest
+# http://localhost:8080/cgi-bin/hello.py
 #
 # podman exec -it nginx-cgi /bin/bash
 # from debian /usr/share/doc/fcgiwrap/examples/nginx.conf
@@ -8,10 +9,8 @@ FROM nginx
 
 RUN apt update && apt install -y \
     python \
-    bash-completion \
     nano \
     fcgiwrap \
-    procps \
     && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i 's/www-data/nginx/g' /etc/init.d/fcgiwrap

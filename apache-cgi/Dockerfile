@@ -7,7 +7,11 @@
 # podman cp apache-cgi:/usr/local/apache2/cgi-bin/test-cgi test-cgi
 FROM httpd
 
-RUN apt update && apt install python bash-completion nano -y
+RUN apt update && apt install -y \
+    python \
+    nano \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 COPY test-cgi /usr/local/apache2/cgi-bin/test-cgi
 COPY hello.py /usr/local/apache2/cgi-bin/hello.py
